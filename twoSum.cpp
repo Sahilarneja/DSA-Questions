@@ -37,3 +37,34 @@ public:
         return twoSum2Pointer(arr, n, x);
     }
 };
+
+int main() {
+    Solution solution;
+    int arr[] = {2, 7, 11, 15};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 9;
+
+    if (solution.hasArrayTwoCandidates(arr, n, target)) {
+        cout << "Array has two elements that sum up to the target." << endl;
+    } else {
+        cout << "Array does not have two elements that sum up to the target." << endl;
+    }
+
+    return 0;
+};
+
+// Solution2:
+// class Solution {
+// public:
+//     vector<int> twoSum(vector<int>& nums, int target) {
+//         int n=nums.size();
+//         for(int i=0;i<n;i++){
+//             for(int j=i+1;j<n;j++){
+//                 if(nums[i]+nums[j]==target){
+//                     return {i,j};
+//                 }
+//             }
+//         }
+//         return{};
+//     }
+// };
