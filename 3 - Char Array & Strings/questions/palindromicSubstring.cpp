@@ -13,14 +13,17 @@ public:
 
     int countSubstrings(string s) {
         int totalCount = 0;
-        for (int center = 0; center < s.length(); center++) {
+        for (int i = 0; i < s.length(); i++) {
             //ODD
-            int oddKaAns = expand(s, center, center);
+            int j=i;
+            int oddKaAns = expand(s, i, j);
 
             //Even
-            int evenKaAns = expand(s, center, center + 1);
+            j=i+1;
+            int evenKaAns = expand(s, i, j );
             totalCount += oddKaAns + evenKaAns;
         }
         return totalCount;
     }
 };
+
