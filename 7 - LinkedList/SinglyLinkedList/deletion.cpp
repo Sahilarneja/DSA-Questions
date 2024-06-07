@@ -7,12 +7,12 @@ class Node{
     Node* next;
 
     Node(){
-        this->next=NULL;
+        this->next = NULL;
     }
 
     Node(int data){
-        this->data=data;
-        this->next =NULL;
+        this->data = data;
+        this->next = NULL;
     }
 };  
 
@@ -23,13 +23,11 @@ void insertAtHead(Node* &head, Node* &tail, int data){
         tail = newNode;
     }
     else{
-    Node* newNode = new Node(data);
-    newNode->next = head;
-    head = newNode;
+        Node* newNode = new Node(data);
+        newNode->next = head;
+        head = newNode;
     }
 }
-
-
 
 void insertAtTail(Node* &head, Node* &tail, int data){
     if(tail == NULL){
@@ -39,19 +37,15 @@ void insertAtTail(Node* &head, Node* &tail, int data){
     }
     else{
         Node* newNode = new Node(data);
-        Node* temp = head;
-        while(temp->next !=NULL){
-            temp = temp->next;
-        }
-        temp->next = newNode;
-        tail= newNode;
+        tail->next = newNode; 
+        tail = newNode; 
     }
 }
 
 int getLength(Node* head){
     int length = 0;
     Node* temp = head;
-    while(temp !=NULL){
+    while(temp != NULL){
         length++;
         temp = temp->next;
     }
@@ -59,7 +53,7 @@ int getLength(Node* head){
 }
 
 void insertAtPos(Node* &head, Node* &tail, int data, int pos){
-    if(pos<=1){
+    if(pos <= 1){
         insertAtHead(head, tail, data);
     }
     else if(pos > getLength(head)){
@@ -68,8 +62,7 @@ void insertAtPos(Node* &head, Node* &tail, int data, int pos){
     else{
         Node* newNode = new Node(data);
         Node* temp = head;
-
-        for(int i=0;i<pos-1;i++){
+        for(int i = 1; i < pos - 1; i++){
             temp = temp->next;
         }
         newNode->next = temp->next;
@@ -84,10 +77,13 @@ void insertAtPos(Node* &head, Node* &tail, int data, int pos){
 void deleteFromHead(Node* &head, Node* &tail){
     if(head == NULL){
         return;
-    }else{
+    } else {
         Node* temp = head;
         head = head->next;
-        temp->next= NULL;
+        if (head == NULL) { 
+            tail = NULL;
+        }
+        delete temp;
     }
 }
 
@@ -97,72 +93,68 @@ void deleteFromTail(Node* &head, Node* &tail) {
     }
 
     if (head == tail) { 
+        delete head;
         head = NULL;
         tail = NULL;
         return;
     }
 
-    
     Node* temp = head;
     while (temp->next != tail) { 
         temp = temp->next;
     }
 
+    delete tail; 
     tail = temp;
     tail->next = NULL;
 }
 
-
-void deleteFrompos(Node* &head, Node* &tail, int pos){
-    if(pos < 1){
+void deleteFromPos(Node* &head, Node* &tail, int pos){
+    if(pos <= 1){
         deleteFromHead(head, tail);
     }
-    else if(pos > getLength(head)){
+    else if(pos >= getLength(head)){
         deleteFromTail(head, tail);
     }
     else{
         Node* temp = head;
-        for(int i=0;i<pos-1;i++){
+        for(int i = 1; i < pos - 1; i++){
             temp = temp->next;
-            
         }
-        Node* temp2 = temp->next;  // jisko delete krna h
-        temp->next = temp->next->next;
-        temp2->next = NULL;
+        Node* temp2 = temp->next; // Node to delete
+        temp->next = temp2->next;
+        delete temp2; 
 
-        if(temp2 == tail){
+        if(temp->next == NULL){
             tail = temp;
         }
-        
     }
-
 }
-
-
 
 void print(Node* &head){
     Node* temp = head;
-    while(temp!=NULL){
-        cout<<temp->data<<" ";
+    while(temp != NULL){
+        cout << temp->data << " ";
         temp = temp->next;
     }
-    cout<<endl;
+    cout << endl;
 }
 
 int main(){
-Node* head = NULL;
-Node* tail = NULL;
+    Node* head = NULL;
+    Node* tail = NULL;
 
-insertAtHead(head, tail, 10);
-insertAtHead(head, tail, 20);
-insertAtTail(head, tail, 30);
-insertAtPos(head, tail, 15, 3); //atTail
-insertAtPos(head, tail, 25, 1); //atHead
-insertAtPos(head, tail, 35, 2); //at middle
-print(head);
+    insertAtHead(head, tail, 10);
+    insertAtHead(head, tail, 20);
+    insertAtTail(head, tail, 30);
+    insertAtPos(head, tail, 15, 3);
+    insertAtPos(head, tail, 25, 1);
+    insertAtPos(head, tail, 35, 2);
+    print(head); 
 
-deleteFromHead(head, tail);
-deleteFromTail(head, tail);
-deleteFrompos(head, tail, 2);
-print(head);
+    deleteFromHead(head, tail);
+    deleteFromTail(head, tail);
+    deleteFromPos(head, tail, 2);
+    print(head); 
+    return 0;
 }
