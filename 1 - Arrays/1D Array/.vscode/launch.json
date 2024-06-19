@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/sahilarneja/Documents/Coding/DSA-Questions/1 - Arrays/1D Array",
+      "program": "/Users/sahilarneja/Documents/Coding/DSA-Questions/1 - Arrays/1D Array/build/Debug/outDebug"
+    }
+  ]
+}
